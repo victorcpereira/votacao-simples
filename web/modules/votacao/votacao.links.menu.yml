@@ -1,0 +1,23 @@
+entity.vtc_pergunta.settings:
+  title: 'Pergunta'
+  description: 'Configure a Pergunta entity type.'
+  route_name:  entity.vtc_pergunta.settings
+  parent: system.admin_structure
+
+entity.vtc_pergunta.collection:
+  title: 'Perguntas'
+  description: 'List of perguntas.'
+  route_name: entity.vtc_pergunta.collection
+  parent: system.admin_content
+
+entity.vtc_resposta.settings:
+  title: 'Resposta'
+  description: 'Configure a Resposta entity type.'
+  route_name:  entity.vtc_resposta.settings
+  parent: system.admin_structure
+
+entity.vtc_resposta.collection:
+  title: 'Respostas'
+  description: 'List of respostas.'
+  route_name: entity.vtc_resposta.collection
+  parent: system.admin_content

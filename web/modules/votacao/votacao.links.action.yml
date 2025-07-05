@@ -1,0 +1,11 @@
+vtc_pergunta.add_form:
+  title: 'Add pergunta'
+  route_name: entity.vtc_pergunta.add_form
+  appears_on:
+    - entity.vtc_pergunta.collection
+
+vtc_resposta.add_form:
+  title: 'Add resposta'
+  route_name: entity.vtc_resposta.add_form
+  appears_on:
+    - entity.vtc_resposta.collection

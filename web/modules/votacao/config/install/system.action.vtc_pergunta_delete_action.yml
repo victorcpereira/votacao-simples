@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - votacao
+id: vtc_pergunta_delete_action
+label: 'Delete perguntas'
+type: vtc_pergunta
+plugin: entity:delete_action:vtc_pergunta
+configuration: {  }

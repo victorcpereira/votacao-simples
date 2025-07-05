@@ -1,0 +1,32 @@
+entity.vtc_pergunta.settings:
+  title: 'Settings'
+  route_name: entity.vtc_pergunta.settings
+  base_route: entity.vtc_pergunta.settings
+entity.vtc_pergunta.view:
+  title: 'View'
+  route_name: entity.vtc_pergunta.canonical
+  base_route: entity.vtc_pergunta.canonical
+entity.vtc_pergunta.edit_form:
+  title: 'Edit'
+  route_name: entity.vtc_pergunta.edit_form
+  base_route: entity.vtc_pergunta.canonical
+entity.vtc_pergunta.delete_form:
+  title: 'Delete'
+  route_name: entity.vtc_pergunta.delete_form
+  base_route: entity.vtc_pergunta.canonical
+  weight: 10
+entity.vtc_pergunta.collection:
+  title: 'Perguntas'
+  route_name: entity.vtc_pergunta.collection
+  base_route: system.admin_content
+  weight: 10
+
+entity.vtc_resposta.settings:
+  title: 'Settings'
+  route_name: entity.vtc_resposta.settings
+  base_route: entity.vtc_resposta.settings
+entity.vtc_resposta.collection:
+  title: 'Respostas'
+  route_name: entity.vtc_resposta.collection
+  base_route: system.admin_content
+  weight: 10

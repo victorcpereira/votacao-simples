@@ -1,0 +1,7 @@
+name: 'Votação'
+type: module
+description: 'Sistema de votação simples'
+package: Custom
+core_version_requirement: ^10 || ^11
+dependencies:
+  - rest:rest

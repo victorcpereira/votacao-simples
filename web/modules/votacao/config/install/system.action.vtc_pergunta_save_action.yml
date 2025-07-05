@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - votacao
+id: vtc_pergunta_save_action
+label: 'Save perguntas'
+type: vtc_pergunta
+plugin: entity:save_action:vtc_pergunta
+configuration: {  }

@@ -1,0 +1,10 @@
+entity.vtc_pergunta.edit_form:
+  route_name: entity.vtc_pergunta.edit_form
+  group: vtc_pergunta
+  title: 'Edit'
+
+entity.vtc_pergunta.delete_form:
+  route_name: entity.vtc_pergunta.delete_form
+  group: vtc_pergunta
+  title: 'Delete'
+  weight: 10

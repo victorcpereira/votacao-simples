@@ -1,0 +1,15 @@
+entity.vtc_pergunta.settings:
+  path: 'admin/structure/vtc-pergunta'
+  defaults:
+    _form: '\Drupal\votacao\Form\PerguntaSettingsForm'
+    _title: 'Pergunta'
+  requirements:
+    _permission: 'administer vtc_pergunta'
+
+entity.vtc_resposta.settings:
+  path: 'admin/structure/vtc-resposta'
+  defaults:
+    _form: '\Drupal\votacao\Form\RespostaSettingsForm'
+    _title: 'Resposta'
+  requirements:
+    _permission: 'administer vtc_resposta'
