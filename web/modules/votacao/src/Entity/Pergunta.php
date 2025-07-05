@@ -65,8 +65,7 @@ use Drupal\votacao\PerguntaListBuilder;
   ],
   field_ui_base_route: 'entity.vtc_pergunta.settings',
 )]
-class Pergunta extends ContentEntityBase implements PerguntaInterface
-{
+class Pergunta extends ContentEntityBase implements PerguntaInterface {
 
   use EntityChangedTrait;
   use EntityOwnerTrait;
@@ -74,21 +73,7 @@ class Pergunta extends ContentEntityBase implements PerguntaInterface
   /**
    * {@inheritdoc}
    */
-  public function preSave(EntityStorageInterface $storage): void
-  {
-    parent::preSave($storage);
-    if (!$this->getOwnerId()) {
-      // If no owner has been set explicitly, make the anonymous user the owner.
-      $this->setOwnerId(0);
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array
-  {
-
+  public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
     $fields = parent::baseFieldDefinitions($entity_type);
 
     // Campo Label
@@ -158,7 +143,6 @@ class Pergunta extends ContentEntityBase implements PerguntaInterface
       ->setDisplayConfigurable('form', TRUE)
       ->setDisplayConfigurable('view', TRUE);
 
-
     $fields['uid'] = BaseFieldDefinition::create('entity_reference')
       ->setLabel(t('Author'))
       ->setSetting('target_type', 'user')
@@ -200,6 +184,17 @@ class Pergunta extends ContentEntityBase implements PerguntaInterface
       ->setDescription(t('The time that the pergunta was last edited.'));
 
     return $fields;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preSave(EntityStorageInterface $storage): void {
+    parent::preSave($storage);
+    if (!$this->getOwnerId()) {
+      // If no owner has been set explicitly, make the anonymous user the owner.
+      $this->setOwnerId(0);
+    }
   }
 
 }

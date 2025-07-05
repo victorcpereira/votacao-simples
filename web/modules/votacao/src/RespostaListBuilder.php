@@ -38,8 +38,10 @@ final class RespostaListBuilder extends EntityListBuilder {
       'settings' => ['link' => $entity->get('uid')->entity->isAuthenticated()],
     ];
     $row['uid']['data'] = $entity->get('uid')->view($username_options);
-    $row['created']['data'] = $entity->get('created')->view(['label' => 'hidden']);
-    $row['changed']['data'] = $entity->get('changed')->view(['label' => 'hidden']);
+    $row['created']['data'] = $entity->get('created')
+      ->view(['label' => 'hidden']);
+    $row['changed']['data'] = $entity->get('changed')
+      ->view(['label' => 'hidden']);
     return $row + parent::buildRow($entity);
   }
 

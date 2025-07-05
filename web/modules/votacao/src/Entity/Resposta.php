@@ -73,19 +73,7 @@ class Resposta extends ContentEntityBase implements RespostaInterface {
   /**
    * {@inheritdoc}
    */
-  public function preSave(EntityStorageInterface $storage): void {
-    parent::preSave($storage);
-    if (!$this->getOwnerId()) {
-      // If no owner has been set explicitly, make the anonymous user the owner.
-      $this->setOwnerId(0);
-    }
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function baseFieldDefinitions(EntityTypeInterface $entity_type): array {
-
     $fields = parent::baseFieldDefinitions($entity_type);
 
     // Título da opção
@@ -193,6 +181,17 @@ class Resposta extends ContentEntityBase implements RespostaInterface {
       ->setDescription(t('The time that the resposta was last edited.'));
 
     return $fields;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function preSave(EntityStorageInterface $storage): void {
+    parent::preSave($storage);
+    if (!$this->getOwnerId()) {
+      // If no owner has been set explicitly, make the anonymous user the owner.
+      $this->setOwnerId(0);
+    }
   }
 
 }

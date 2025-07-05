@@ -1,7 +1,7 @@
 entity.vtc_pergunta.settings:
   title: 'Pergunta'
   description: 'Configure a Pergunta entity type.'
-  route_name:  entity.vtc_pergunta.settings
+  route_name: entity.vtc_pergunta.settings
   parent: system.admin_structure
 
 entity.vtc_pergunta.collection:
@@ -13,7 +13,7 @@ entity.vtc_pergunta.collection:
 entity.vtc_resposta.settings:
   title: 'Resposta'
   description: 'Configure a Resposta entity type.'
-  route_name:  entity.vtc_resposta.settings
+  route_name: entity.vtc_resposta.settings
   parent: system.admin_structure
 
 entity.vtc_resposta.collection:

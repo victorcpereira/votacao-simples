@@ -7,4 +7,4 @@ id: vtc_resposta_delete_action
 label: 'Delete respostas'
 type: vtc_resposta
 plugin: entity:delete_action:vtc_resposta
-configuration: {  }
+configuration: { }

@@ -24,8 +24,8 @@ function votacao_theme(): array {
  *
  * @param array $variables
  *   An associative array containing:
- *   - elements: An associative array containing the pergunta information and any
- *     fields attached to the entity.
+ *   - elements: An associative array containing the pergunta information and
+ *   any fields attached to the entity.
  *   - attributes: HTML attributes for the containing element.
  */
 function template_preprocess_vtc_pergunta(array &$variables): void {
@@ -42,7 +42,7 @@ function votacao_user_cancel($edit, UserInterface $account, $method): void {
   switch ($method) {
     case 'user_cancel_block_unpublish':
       // Unpublish perguntas.
-      $storage = \Drupal::entityTypeManager()->getStorage('vtc_pergunta');
+      $storage = Drupal::entityTypeManager()->getStorage('vtc_pergunta');
       $vtc_pergunta_ids = $storage->getQuery()
         ->condition('uid', $account->id())
         ->condition('status', 1)
@@ -55,7 +55,7 @@ function votacao_user_cancel($edit, UserInterface $account, $method): void {
 
     case 'user_cancel_reassign':
       // Anonymize perguntas.
-      $storage = \Drupal::entityTypeManager()->getStorage('vtc_pergunta');
+      $storage = Drupal::entityTypeManager()->getStorage('vtc_pergunta');
       $vtc_pergunta_ids = $storage->getQuery()
         ->condition('uid', $account->id())
         ->accessCheck(FALSE)
@@ -72,7 +72,7 @@ function votacao_user_cancel($edit, UserInterface $account, $method): void {
  */
 function votacao_user_predelete(UserInterface $account): void {
   // Delete perguntas that belong to this account.
-  $storage = \Drupal::entityTypeManager()->getStorage('vtc_pergunta');
+  $storage = Drupal::entityTypeManager()->getStorage('vtc_pergunta');
   $vtc_pergunta_ids = $storage->getQuery()
     ->condition('uid', $account->id())
     ->accessCheck(FALSE)

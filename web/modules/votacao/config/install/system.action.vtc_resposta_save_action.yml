@@ -7,4 +7,4 @@ id: vtc_resposta_save_action
 label: 'Save respostas'
 type: vtc_resposta
 plugin: entity:save_action:vtc_resposta
-configuration: {  }
+configuration: { }

@@ -23,7 +23,6 @@ final class RespostaSettingsForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state): array {
-
     $form['settings'] = [
       '#markup' => $this->t('Settings form for a resposta entity type.'),
     ];
@@ -43,7 +42,8 @@ final class RespostaSettingsForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state): void {
-    $this->messenger()->addStatus($this->t('The configuration has been updated.'));
+    $this->messenger()
+      ->addStatus($this->t('The configuration has been updated.'));
   }
 
 }
