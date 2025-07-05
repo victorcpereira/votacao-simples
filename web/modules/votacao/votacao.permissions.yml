@@ -9,13 +9,10 @@ delete vtc_pergunta:
   title: 'Delete pergunta'
 create vtc_pergunta:
   title: 'Create pergunta'
-view vtc_pergunta revision:
-  title: 'View pergunta revision'
-revert vtc_pergunta revision:
-  title: 'Revert pergunta revision'
-delete vtc_pergunta revision:
-  title: 'Delete pergunta revision'
 
 administer vtc_resposta:
   title: 'Administer respostas'
   restrict access: true
+
+access perguntas api:
+  title: 'Acessar API de perguntas'

@@ -21,6 +21,7 @@
         "drupal/core-recipe-unpack": "^11.2",
         "drupal/core-recommended": "^11.2",
         "drupal/inline_entity_form": "^3.0@RC",
+        "drupal/restui": "^1.22",
         "drush/drush": "^13.6"
     },
     "conflict": {
