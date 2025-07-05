@@ -1,1 +1,64 @@
-<?php&#10&#10namespace Drupal\votacao\Controller;&#10&#10use Drupal\Core\Controller\ControllerBase;&#10use Drupal\votacao\Entity\OpcaoResposta;&#10use Drupal\votacao\Entity\Pergunta;&#10use Symfony\Component\HttpFoundation\RedirectResponse;&#10use Symfony\Component\HttpFoundation\Request;&#10&#10class VotacaoController extends ControllerBase {&#10&#10  public function exibirPergunta(Pergunta $pergunta) {&#10    $opcoes = $pergunta->get('opcoes')->referencedEntities();&#10&#10    $build = [&#10      '#theme' => 'votacao_form',&#10      '#pergunta' => $pergunta,&#10      '#opcoes' => $opcoes,&#10      '#cache' => ['max-age' => 0],&#10    ];&#10&#10    return $build;&#10  }&#10&#10  public function registrarVoto(Request $request, Pergunta $pergunta) {&#10    $opcao_id = $request->get('opcao');&#10    $opcao = OpcaoResposta::load($opcao_id);&#10&#10    if ($opcao && in_array($opcao_id, array_map(fn($o) => $o->id(), $pergunta->get('opcoes')&#10        ->referencedEntities()))) {&#10      $votos_atuais = $opcao->get('votos')->value;&#10      $opcao->set('votos', $votos_atuais + 1);&#10      $opcao->save();&#10&#10      $this->messenger()&#10        ->addStatus($this->t('Seu voto foi registrado com sucesso.'));&#10    }&#10    else {&#10      $this->messenger()->addError($this->t('Opção inválida.'));&#10    }&#10&#10    return new RedirectResponse('/votacao/' . $pergunta->id());&#10  }&#10&#10}&#10
+<?php
+
+declare(strict_types=1);
+
+namespace Drupal\votacao\Controller;
+
+use Drupal\Core\Controller\ControllerBase;
+use Drupal\votacao\Entity\Pergunta;
+use Drupal\votacao\Entity\Resposta;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
+
+/**
+ * Returns responses for Votação routes.
+ */
+final class VotacaoController extends ControllerBase {
+
+  public function exibirPergunta(Pergunta $vtc_pergunta) {
+    $opcoes = $vtc_pergunta->get('opcoes')->referencedEntities();
+
+    return [
+      '#theme' => 'votacao_form',
+      '#pergunta' => $vtc_pergunta,
+      '#opcoes' => $opcoes,
+      '#cache' => ['max-age' => 0],
+    ];
+  }
+
+  public function registrarVoto(Request $request, Pergunta $vtc_pergunta) {
+    // Verifica se a pergunta está ativa
+    if (!$vtc_pergunta->get('status')->value) {
+      throw new AccessDeniedHttpException('Esta votação está desativada.');
+    }
+
+    $opcao_id = $request->get('opcao');
+    $opcao = Resposta::load($opcao_id);
+
+    if (!$opcao) {
+      $this->messenger()->addError($this->t('Opção inválida.'));
+      return new RedirectResponse('/votacao/' . $vtc_pergunta->id());
+    }
+
+    // Verifica se a opção realmente pertence à pergunta
+    $ids_validos = array_map(fn($ent) => $ent->id(), $vtc_pergunta->get('opcoes')
+      ->referencedEntities());
+
+    if (!in_array($opcao->id(), $ids_validos)) {
+      $this->messenger()->addError($this->t('Opção não pertence à pergunta.'));
+      return new RedirectResponse('/votacao/' . $vtc_pergunta->id());
+    }
+
+    // Incrementa os votos
+    $votos_atuais = (int) $opcao->get('votos')->value;
+    $opcao->set('votos', $votos_atuais + 1);
+    $opcao->save();
+
+    // Mensagem de sucesso
+    $this->messenger()
+      ->addStatus($this->t('Seu voto foi registrado com sucesso.'));
+
+    return new RedirectResponse('/votacao/' . $vtc_pergunta->id());
+  }
+
+}

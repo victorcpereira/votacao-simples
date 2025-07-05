@@ -13,3 +13,23 @@ entity.vtc_resposta.settings:
     _title: 'Resposta'
   requirements:
     _permission: 'administer vtc_resposta'
+
+votacao.votar:
+  path: '/votacao/{vtc_pergunta}/votar'
+  defaults:
+    _controller: '\Drupal\votacao\Controller\VotacaoController::registrarVoto'
+  requirements:
+    _entity_access: 'vtc_pergunta.update'
+    _method: 'POST'
+    vtc_pergunta: \d+
+
+
+votacao.pergunta:
+  path: '/votacao/{vtc_pergunta}'
+  defaults:
+    _controller: '\Drupal\votacao\Controller\VotacaoController::exibirPergunta'
+    _title: 'Votação'
+  requirements:
+    _entity_access: 'vtc_pergunta.view'
+    vtc_pergunta: \d+
+

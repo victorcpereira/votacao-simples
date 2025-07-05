@@ -14,6 +14,13 @@ use Drupal\user\UserInterface;
 function votacao_theme(): array {
   return [
     'vtc_pergunta' => ['render element' => 'elements'],
+    'votacao_form' => [
+      'variables' => [
+        'pergunta' => NULL,
+        'opcoes' => [],
+      ],
+      'template' => 'votacao-form',
+    ],
   ];
 }
 
