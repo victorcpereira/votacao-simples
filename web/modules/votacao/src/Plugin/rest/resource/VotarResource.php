@@ -61,7 +61,11 @@ final class VotarResource extends ResourceBase {
   }
 
   public function post(int $id, array $data, Request $request): ModifiedResourceResponse {
-    // Verificação de token via configuração do sistema
+    $globalDisabled = $this->configFactory->get('votacao.settings')->get('disable');
+    if ($globalDisabled) {
+      throw new AccessDeniedHttpException("O sistema de votação está temporariamente desativado.");
+    }
+
     $clientToken = $request->headers->get('X-API-TOKEN');
     $expectedToken = $this->configFactory->get('votacao.settings')->get('api_token');
 

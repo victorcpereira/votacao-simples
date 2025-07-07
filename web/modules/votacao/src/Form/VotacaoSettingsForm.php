@@ -39,6 +39,14 @@ final class VotacaoSettingsForm extends ConfigFormBase {
       '#required' => TRUE,
     ];
 
+    $form['disable'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Desativar o sistema de votação'),
+      '#default_value' => $config->get('disable'),
+      '#description' => $this->t('Se marcado, nenhum voto poderá ser registrado temporariamente.'),
+    ];
+
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -48,6 +56,7 @@ final class VotacaoSettingsForm extends ConfigFormBase {
   public function submitForm(array &$form, FormStateInterface $form_state): void {
     $this->configFactory->getEditable('votacao.settings')
       ->set('api_token', $form_state->getValue('api_token'))
+      ->set('disable', $form_state->getValue('disable'))
       ->save();
 
     parent::submitForm($form, $form_state);

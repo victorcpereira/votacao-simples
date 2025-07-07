@@ -5,3 +5,6 @@ votacao.settings:
     api_token:
       type: string
       label: 'Token da API'
+    disable:
+      type: boolean
+      label: 'Desativar sistema de votação'

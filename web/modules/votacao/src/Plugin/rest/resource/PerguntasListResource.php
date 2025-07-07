@@ -61,6 +61,12 @@ final class PerguntasListResource extends ResourceBase {
   }
 
   public function get(Request $request): ResourceResponse {
+    $globalDisabled = $this->configFactory->get('votacao.settings')
+      ->get('disable');
+    if ($globalDisabled) {
+      throw new AccessDeniedHttpException("O sistema de votação está temporariamente desativado.");
+    }
+
     $clientToken = $request->headers->get('X-API-TOKEN');
     $expectedToken = $this->configFactory->get('votacao.settings')
       ->get('api_token');
