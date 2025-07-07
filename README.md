@@ -7,7 +7,7 @@ segura.
 
 ---
 
-## 🚀 Instalação com Composer + Lando
+## Instalação com Composer + Lando
 
 ```bash
 lando start
@@ -18,7 +18,7 @@ lando drush en votacao -y
 
 ---
 
-## 🧩 Módulos necessários
+## Módulos necessários
 
 - `votacao` (módulo customizado)
 - `rest`
@@ -28,7 +28,7 @@ lando drush en votacao -y
 
 ---
 
-## 🔐 Configuração do Token da API
+## Configuração do Token da API
 
 Acesse:
 
@@ -42,7 +42,7 @@ voto.
 
 ---
 
-## 📡 Endpoints da API REST
+## Endpoints da API REST
 
 Todos os endpoints exigem o cabeçalho:
 
@@ -50,7 +50,7 @@ Todos os endpoints exigem o cabeçalho:
 X-API-TOKEN: seu_token_configurado
 ```
 
-### 🔎 GET /api/perguntas
+### GET /api/perguntas
 
 Lista perguntas com paginação:
 
@@ -59,7 +59,7 @@ curl -X GET http://votacao-simples.lndo.site/api/perguntas \
   -H "X-API-TOKEN: seu_token_configurado"
 ```
 
-### 🔎 GET /api/pergunta/{id}
+### GET /api/pergunta/{id}
 
 Detalha uma pergunta com opções:
 
@@ -68,7 +68,7 @@ curl -X GET http://votacao-simples.lndo.site/api/pergunta/1 \
   -H "X-API-TOKEN: seu_token_configurado"
 ```
 
-### 🗳️ POST /api/pergunta/{id}/votar
+### POST /api/pergunta/{id}/votar
 
 Registra um voto para uma opção da pergunta:
 
@@ -83,7 +83,7 @@ curl -X POST http://votacao-simples.lndo.site/api/pergunta/1/votar \
 
 ---
 
-## 🗳️ Página de votação
+## Página de votação
 
 A página pública de votação pode ser acessada por qualquer usuário (anônimo ou
 autenticado) usando o seguinte padrão de URL:
@@ -97,7 +97,7 @@ da pergunta permitir, visualizar os resultados após votar.
 
 ---
 
-## 🛠️ Funcionalidades principais
+##  Funcionalidades principais
 
 - Cadastro de perguntas e respostas via UI
 - Voto anônimo
@@ -108,14 +108,14 @@ da pergunta permitir, visualizar os resultados após votar.
 
 ---
 
-## 🛠️ Banco de dados
+##  Banco de dados
 
 - O dump do banco de dados se encontra em [database.sql.gz](database.sql.gz)
 - Para importar o banco de dados execute o seguinte comando
   - `lando db-import database.sql.gz`
 ---
 
-## ✅ Pronto para entrega!
+## Pronto para entrega!
 
 Este projeto está pronto para avaliação com base nos critérios fornecidos.
 
