@@ -1,1 +1,115 @@
-# Sistema de Votação Simples (Drupal 11)&#10&#10Este projeto implementa um sistema de votação simples em Drupal 11, com foco total no backend. Ele permite a criação de perguntas com múltiplas opções de resposta, votação por usuários anônimos, exibição de resultados e acesso via API segura.&#10&#10---&#10&#10## 🚀 Instalação com Composer + Lando&#10&#10```bash&#10lando start&#10lando composer install&#10lando drush site:install&#10lando drush en votacao restui -y&#10```&#10&#10---&#10&#10## ⚙️ Exportação de configurações&#10&#10Para importar/exportar a configuração do projeto:&#10&#10```bash&#10lando drush cex -y     # Exportar configs&#10lando drush cim -y     # Importar configs&#10```&#10&#10---&#10&#10## 🧩 Módulos necessários&#10&#10- `votacao` (módulo customizado)&#10- `rest`&#10- `restui`&#10&#10---&#10&#10## 🔐 Configuração do Token da API&#10&#10Acesse:&#10&#10```&#10/admin/config/votacao/settings&#10```&#10&#10Configure o valor do **token da API**, e opcionalmente marque "Desativar sistema de votação" para suspender temporariamente todos os endpoints e interações de voto.&#10&#10---&#10&#10## 📡 Endpoints da API REST&#10&#10Todos os endpoints exigem o cabeçalho:&#10&#10```&#10X-API-TOKEN: seu_token_configurado&#10```&#10&#10### 🔎 GET /api/perguntas&#10Lista perguntas com paginação:&#10&#10```bash&#10curl -X GET http://votacao-simples.lndo.site/api/perguntas \&#10  -H "X-API-TOKEN: seu_token_configurado"&#10```&#10&#10### 🔎 GET /api/pergunta/{id}&#10Detalha uma pergunta com opções:&#10&#10```bash&#10curl -X GET http://votacao-simples.lndo.site/api/pergunta/1 \&#10  -H "X-API-TOKEN: seu_token_configurado"&#10```&#10&#10### 🗳️ POST /api/pergunta/{id}/votar&#10Registra um voto para uma opção da pergunta:&#10&#10```bash&#10curl -X POST http://votacao-simples.lndo.site/api/pergunta/1/votar \&#10  -H "Content-Type: application/json" \&#10  -H "X-API-TOKEN: seu_token_configurado" \&#10  -d '{&#10    "opcao_id": 5&#10  }'&#10```&#10&#10---&#10&#10## 🗳️ Página de votação&#10&#10A página pública de votação pode ser acessada por qualquer usuário (anônimo ou autenticado) usando o seguinte padrão de URL:&#10&#10```&#10/votacao/[id da pergunta]&#10```&#10&#10Nela, o usuário poderá votar em uma das opções disponíveis e, se a configuração da pergunta permitir, visualizar os resultados após votar.&#10&#10---&#10&#10## 🛠️ Funcionalidades principais&#10&#10- Cadastro de perguntas e opções via UI&#10- Imagem, título e descrição por opção&#10- Voto anônimo&#10- Exibição condicional dos resultados (após voto)&#10- Página administrativa de resultados:&#10  - `/admin/content/votacao/resultados`&#10  - Com totais, porcentagens e paginação&#10&#10---&#10&#10## ✅ Pronto para entrega!&#10Este projeto está pronto para avaliação com base nos critérios fornecidos.&#10&#10Dúvidas ou sugestões? Sinta-se à vontade para revisar o código ou entrar em contato. ✌️&#10
+# Sistema de Votação Simples (Drupal 11)
+
+Este projeto implementa um sistema de votação simples em Drupal 11, com foco total no backend. Ele permite a criação de perguntas com múltiplas opções de resposta, votação por usuários anônimos, exibição de resultados e acesso via API segura.
+
+---
+
+## 🚀 Instalação com Composer + Lando
+
+```bash
+lando start
+lando composer install
+lando drush site:install
+lando drush en votacao restui -y
+```
+
+---
+
+## ⚙️ Exportação de configurações
+
+Para importar/exportar a configuração do projeto:
+
+```bash
+lando drush cex -y     # Exportar configs
+lando drush cim -y     # Importar configs
+```
+
+---
+
+## 🧩 Módulos necessários
+
+- `votacao` (módulo customizado)
+- `rest`
+- `restui`
+
+---
+
+## 🔐 Configuração do Token da API
+
+Acesse:
+
+```
+/admin/config/votacao/settings
+```
+
+Configure o valor do **token da API**, e opcionalmente marque "Desativar sistema de votação" para suspender temporariamente todos os endpoints e interações de voto.
+
+---
+
+## 📡 Endpoints da API REST
+
+Todos os endpoints exigem o cabeçalho:
+
+```
+X-API-TOKEN: seu_token_configurado
+```
+
+### 🔎 GET /api/perguntas
+Lista perguntas com paginação:
+
+```bash
+curl -X GET http://votacao-simples.lndo.site/api/perguntas \
+  -H "X-API-TOKEN: seu_token_configurado"
+```
+
+### 🔎 GET /api/pergunta/{id}
+Detalha uma pergunta com opções:
+
+```bash
+curl -X GET http://votacao-simples.lndo.site/api/pergunta/1 \
+  -H "X-API-TOKEN: seu_token_configurado"
+```
+
+### 🗳️ POST /api/pergunta/{id}/votar
+Registra um voto para uma opção da pergunta:
+
+```bash
+curl -X POST http://votacao-simples.lndo.site/api/pergunta/1/votar \
+  -H "Content-Type: application/json" \
+  -H "X-API-TOKEN: seu_token_configurado" \
+  -d '{
+    "opcao_id": 5
+  }'
+```
+
+---
+
+## 🗳️ Página de votação
+
+A página pública de votação pode ser acessada por qualquer usuário (anônimo ou autenticado) usando o seguinte padrão de URL:
+
+```
+/votacao/[id da pergunta]
+```
+
+Nela, o usuário poderá votar em uma das opções disponíveis e, se a configuração da pergunta permitir, visualizar os resultados após votar.
+
+---
+
+## 🛠️ Funcionalidades principais
+
+- Cadastro de perguntas e opções via UI
+- Imagem, título e descrição por opção
+- Voto anônimo
+- Exibição condicional dos resultados (após voto)
+- Página administrativa de resultados:
+  - `/admin/content/votacao/resultados`
+  - Com totais, porcentagens e paginação
+
+---
+
+## ✅ Pronto para entrega!
+
+Este projeto está pronto para avaliação com base nos critérios fornecidos.
+
+Dúvidas ou sugestões? Sinta-se à vontade para revisar o código ou entrar em contato. ✌️
