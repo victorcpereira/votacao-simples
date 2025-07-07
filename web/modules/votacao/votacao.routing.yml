@@ -39,3 +39,11 @@ votacao.settings_form:
     _form: 'Drupal\votacao\Form\VotacaoSettingsForm'
   requirements:
     _permission: 'administer site configuration'
+
+votacao.resultados:
+  path: '/admin/content/votacao/resultados'
+  defaults:
+    _controller: '\Drupal\votacao\Controller\ResultadosController::listar'
+    _title: 'Resultados das Votações'
+  requirements:
+    _permission: 'administer site configuration'
