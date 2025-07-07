@@ -9,26 +9,26 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Session\AccountProxyInterface;
 use Drupal\Core\StringTranslation\TranslatableMarkup;
 use Drupal\rest\Attribute\RestResource;
+use Drupal\rest\ModifiedResourceResponse;
 use Drupal\rest\Plugin\ResourceBase;
-use Drupal\rest\ResourceResponse;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 #[RestResource(
-  id: 'votacao_perguntas_list_api',
-  label: new TranslatableMarkup('Perguntas List API'),
+  id: 'votacao_votar_api',
+  label: new TranslatableMarkup('Votar API'),
   uri_paths: [
-    'canonical' => '/api/perguntas',
-  ],
+    'create' => '/api/pergunta/{id}/votar'
+  ]
 )]
-final class PerguntasListResource extends ResourceBase {
+final class VotarResource extends ResourceBase {
 
   protected EntityTypeManagerInterface $entityTypeManager;
-
   protected AccountProxyInterface $currentUser;
-
   protected ConfigFactoryInterface $configFactory;
 
   public function __construct(
@@ -60,45 +60,53 @@ final class PerguntasListResource extends ResourceBase {
     );
   }
 
-  public function get(Request $request): ResourceResponse {
+  public function post(int $id, array $data, Request $request): ModifiedResourceResponse {
+    // Verificação de token via configuração do sistema
     $clientToken = $request->headers->get('X-API-TOKEN');
-    $expectedToken = $this->configFactory->get('votacao.settings')
-      ->get('api_token');
+    $expectedToken = $this->configFactory->get('votacao.settings')->get('api_token');
 
     if (!$expectedToken || $clientToken !== $expectedToken) {
       throw new AccessDeniedHttpException("Token de acesso inválido ou ausente.");
     }
 
     $storage = $this->entityTypeManager->getStorage('vtc_pergunta');
-    $query = $storage->getQuery()
-      ->accessCheck(TRUE)
-      ->condition('status', TRUE)
-      ->sort('id', 'ASC');
+    $pergunta = $storage->load($id);
 
-    // Paginação: 10 itens por página
-    $page = (int) ($_GET['page'] ?? 0);
-    $limit = 10;
-    $query->range($page * $limit, $limit);
-
-    $ids = $query->execute();
-    $entities = $storage->loadMultiple($ids);
-
-    $data = [];
-    foreach ($entities as $pergunta) {
-      $data[] = [
-        'id' => $pergunta->id(),
-        'titulo' => $pergunta->label(),
-        'status' => (bool) $pergunta->get('status')->value,
-        'show_results' => (bool) $pergunta->get('show_results')->value,
-      ];
+    if (!$pergunta) {
+      throw new NotFoundHttpException("Pergunta com ID $id não encontrada.");
     }
 
-    return new ResourceResponse([
-      'page' => $page,
-      'limit' => $limit,
-      'count' => count($data),
-      'items' => $data,
-    ]);
-  }
+    if (!$pergunta->get('status')->value) {
+      throw new AccessDeniedHttpException("Votação desativada.");
+    }
 
+    $opcao_id = $data['opcao_id'] ?? null;
+    if (!$opcao_id || !is_numeric($opcao_id)) {
+      throw new BadRequestHttpException("ID da opção de resposta é obrigatório.");
+    }
+
+    $opcoes = $pergunta->get('opcoes')->referencedEntities();
+    $opcao = null;
+
+    foreach ($opcoes as $item) {
+      if ((int) $item->id() === (int) $opcao_id) {
+        $opcao = $item;
+        break;
+      }
+    }
+
+    if (!$opcao) {
+      throw new BadRequestHttpException("A opção informada não pertence à pergunta.");
+    }
+
+    $votos = (int) $opcao->get('votos')->value;
+    $opcao->set('votos', $votos + 1);
+    $opcao->save();
+
+    return new ModifiedResourceResponse([
+      'message' => 'Voto registrado com sucesso.',
+      'opcao_id' => $opcao->id(),
+      'total_votos' => $opcao->get('votos')->value,
+    ], 200);
+  }
 }

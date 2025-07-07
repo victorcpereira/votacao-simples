@@ -23,7 +23,6 @@ votacao.votar:
     _method: 'POST'
     vtc_pergunta: \d+
 
-
 votacao.pergunta:
   path: '/votacao/{vtc_pergunta}'
   defaults:
@@ -33,3 +32,10 @@ votacao.pergunta:
     _entity_access: 'vtc_pergunta.view'
     vtc_pergunta: \d+
 
+votacao.settings_form:
+  path: '/admin/config/votacao/settings'
+  defaults:
+    _title: 'Configurações da Votação'
+    _form: 'Drupal\votacao\Form\VotacaoSettingsForm'
+  requirements:
+    _permission: 'administer site configuration'
