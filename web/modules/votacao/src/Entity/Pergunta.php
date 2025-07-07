@@ -53,7 +53,7 @@ use Drupal\votacao\PerguntaListBuilder;
     'collection' => '/admin/content/vtc-pergunta',
     'add-form' => '/vtc-pergunta/add',
     'canonical' => '/vtc-pergunta/{vtc_pergunta}',
-    'edit-form' => '/vtc-pergunta/{vtc_pergunta}/edit',
+    'edit-form' => '/vtc-pergunta/{vtc_pergunta}',
     'delete-form' => '/vtc-pergunta/{vtc_pergunta}/delete',
     'delete-multiple-form' => '/admin/content/vtc-pergunta/delete-multiple',
   ],

@@ -6,6 +6,7 @@ namespace Drupal\votacao;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityListBuilder;
+use Drupal\Core\Link;
 
 /**
  * Provides a list controller for the pergunta entity type.
@@ -31,7 +32,7 @@ final class PerguntaListBuilder extends EntityListBuilder {
   public function buildRow(EntityInterface $entity): array {
     /** @var \Drupal\votacao\PerguntaInterface $entity */
     $row['id'] = $entity->id();
-    $row['label'] = $entity->toLink();
+    $row['label'] = Link::createFromRoute($entity->label(), 'votacao.pergunta', ['vtc_pergunta' => $entity->id()]);
     $row['status'] = $entity->get('status')->value ? $this->t('Enabled') : $this->t('Disabled');
     $username_options = [
       'label' => 'hidden',

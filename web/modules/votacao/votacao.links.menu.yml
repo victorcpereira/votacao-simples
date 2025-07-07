@@ -21,3 +21,10 @@ entity.vtc_resposta.collection:
   description: 'List of respostas.'
   route_name: entity.vtc_resposta.collection
   parent: system.admin_content
+
+votacao.resultados:
+  title: 'Votação'
+  description: 'Visualizar resultados das votações.'
+  parent: system.admin
+  route_name: votacao.resultados
+  weight: 100

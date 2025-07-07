@@ -2,10 +2,7 @@ entity.vtc_pergunta.settings:
   title: 'Settings'
   route_name: entity.vtc_pergunta.settings
   base_route: entity.vtc_pergunta.settings
-entity.vtc_pergunta.view:
-  title: 'View'
-  route_name: entity.vtc_pergunta.canonical
-  base_route: entity.vtc_pergunta.canonical
+
 entity.vtc_pergunta.edit_form:
   title: 'Edit'
   route_name: entity.vtc_pergunta.edit_form
@@ -15,18 +12,33 @@ entity.vtc_pergunta.delete_form:
   route_name: entity.vtc_pergunta.delete_form
   base_route: entity.vtc_pergunta.canonical
   weight: 10
-entity.vtc_pergunta.collection:
-  title: 'Perguntas'
-  route_name: entity.vtc_pergunta.collection
-  base_route: system.admin_content
-  weight: 10
 
 entity.vtc_resposta.settings:
   title: 'Settings'
   route_name: entity.vtc_resposta.settings
   base_route: entity.vtc_resposta.settings
-entity.vtc_resposta.collection:
-  title: 'Respostas'
+
+votacao.resultados.tabs.resultados:
+  route_name: votacao.resultados
+  title: 'Resultados'
+  base_route: votacao.resultados
+  weight: 1
+
+votacao.resultados.tabs.perguntas:
+  route_name: entity.vtc_pergunta.collection
+  title: 'Perguntas'
+  base_route: votacao.resultados
+  weight: 2
+
+votacao.resultados.tabs.respostas:
   route_name: entity.vtc_resposta.collection
-  base_route: system.admin_content
-  weight: 10
+  title: 'Respostas'
+  base_route: votacao.resultados
+  weight: 3
+
+votacao.resultados.tabs.configuracao:
+  route_name: votacao.settings_form
+  title: 'Configurações'
+  base_route: votacao.resultados
+  weight: 4
+
