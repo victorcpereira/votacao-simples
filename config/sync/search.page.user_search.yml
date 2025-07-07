@@ -1,0 +1,14 @@
+uuid: 370fddfb-835b-4c31-8c56-d14315a203bd
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - user
+_core:
+  default_config_hash: k3aUaZXGDuhkek2TZIee0PApOPTvYZLadziekdyHA5A
+id: user_search
+label: Usuários
+path: user
+weight: 0
+plugin: user_search
+configuration: {  }

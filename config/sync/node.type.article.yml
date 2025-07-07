@@ -1,0 +1,13 @@
+uuid: 9c72552a-6529-461d-8338-49d19212075b
+langcode: pt-br
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Fe3N1uqaAyyKJbVkqT-btXy3t98puW8GCRD822xjl10
+name: Artigo
+type: article
+description: 'Use <em>artigos</em> para conteúdo temporal como notícias, comunicados de imprensa e posts de blog.'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

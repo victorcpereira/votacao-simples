@@ -1,0 +1,18 @@
+uuid: b6b027a6-59c4-436f-abce-a2c7469d4240
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - serialization
+    - user
+    - votacao
+id: votacao_perguntas_list_api
+plugin_id: votacao_perguntas_list_api
+granularity: resource
+configuration:
+  methods:
+    - GET
+  formats:
+    - json
+  authentication:
+    - cookie

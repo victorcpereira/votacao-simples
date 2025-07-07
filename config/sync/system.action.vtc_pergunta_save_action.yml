@@ -1,0 +1,13 @@
+uuid: 9cb296ac-4aba-4963-aca5-80d256da5377
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - votacao
+_core:
+  default_config_hash: kgToSnFjG0FLdDhxPY1EfC7X-DCGUO7jJIZPZQhX2oI
+id: vtc_pergunta_save_action
+label: 'Save perguntas'
+type: vtc_pergunta
+plugin: 'entity:save_action:vtc_pergunta'
+configuration: {  }

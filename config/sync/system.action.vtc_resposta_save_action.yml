@@ -1,0 +1,13 @@
+uuid: d643b660-e2fc-44ad-9c8f-97d44fbb0119
+langcode: pt-br
+status: true
+dependencies:
+  module:
+    - votacao
+_core:
+  default_config_hash: 8M1DMF455qq79NtGYiFHK-QSHMjlXZyhftrFQ7TPLhM
+id: vtc_resposta_save_action
+label: 'Save respostas'
+type: vtc_resposta
+plugin: 'entity:save_action:vtc_resposta'
+configuration: {  }
