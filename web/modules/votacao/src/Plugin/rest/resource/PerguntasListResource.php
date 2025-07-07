@@ -93,12 +93,16 @@ final class PerguntasListResource extends ResourceBase {
       ];
     }
 
-    return new ResourceResponse([
+    $response = new ResourceResponse([
       'page' => $page,
       'limit' => $limit,
       'count' => count($data),
       'items' => $data,
     ]);
+
+    $response->addCacheableDependency($pergunta);
+    $response->setMaxAge(60); // 60 seg de cache
+    return $response;
   }
 
 }

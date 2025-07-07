@@ -96,6 +96,9 @@ final class PerguntaDetailResource extends ResourceBase {
       'opcoes' => $opcoes,
     ];
 
-    return new ResourceResponse($data);
+    $response = new ResourceResponse($data);
+    $response->addCacheableDependency($pergunta);
+    $response->setMaxAge(60); // 60 seg de cache
+    return $response;
   }
 }
