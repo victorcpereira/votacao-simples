@@ -108,6 +108,13 @@ da pergunta permitir, visualizar os resultados após votar.
 
 ---
 
+## 🛠️ Banco de dados
+
+- O dump do banco de dados se encontra em [database.sql.gz](database.sql.gz)
+- Para importar o banco de dados execute o seguinte comando
+  - `lando db-import database.sql.gz`
+---
+
 ## ✅ Pronto para entrega!
 
 Este projeto está pronto para avaliação com base nos critérios fornecidos.
