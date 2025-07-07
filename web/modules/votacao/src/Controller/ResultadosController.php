@@ -22,8 +22,7 @@ final class ResultadosController extends ControllerBase {
 
   public function listar(): array {
     $limit = 10;
-
-    $storage = \Drupal::entityTypeManager()->getStorage('vtc_pergunta');
+    $storage = $this->entityTypeManager()->getStorage('vtc_pergunta');
     $total = $storage->getQuery()
       ->accessCheck(TRUE)
       ->count()

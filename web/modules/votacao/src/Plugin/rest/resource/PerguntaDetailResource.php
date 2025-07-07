@@ -21,13 +21,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
   id: 'votacao_pergunta_detail_api',
   label: new TranslatableMarkup('Pergunta Detail API'),
   uri_paths: [
-    'canonical' => '/api/pergunta/{id}'
+    'canonical' => '/api/pergunta/{id}',
   ],
 )]
 final class PerguntaDetailResource extends ResourceBase {
 
   protected EntityTypeManagerInterface $entityTypeManager;
+
   protected AccountProxyInterface $currentUser;
+
   protected ConfigFactoryInterface $configFactory;
 
   public function __construct(
@@ -60,12 +62,14 @@ final class PerguntaDetailResource extends ResourceBase {
   }
 
   public function get(int $id, Request $request): ResourceResponse {
-    $globalDisabled = $this->configFactory->get('votacao.settings')->get('disable');
+    $globalDisabled = $this->configFactory->get('votacao.settings')
+      ->get('disable');
     if ($globalDisabled) {
       throw new AccessDeniedHttpException("O sistema de votação está temporariamente desativado.");
     }
     $clientToken = $request->headers->get('X-API-TOKEN');
-    $expectedToken = $this->configFactory->get('votacao.settings')->get('api_token');
+    $expectedToken = $this->configFactory->get('votacao.settings')
+      ->get('api_token');
 
     if (!$expectedToken || $clientToken !== $expectedToken) {
       throw new AccessDeniedHttpException("Token de acesso inválido ou ausente.");
@@ -105,4 +109,5 @@ final class PerguntaDetailResource extends ResourceBase {
     $response->setMaxAge(60); // 60 seg de cache
     return $response;
   }
+
 }

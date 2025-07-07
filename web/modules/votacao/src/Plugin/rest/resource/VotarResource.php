@@ -22,13 +22,15 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
   id: 'votacao_votar_api',
   label: new TranslatableMarkup('Votar API'),
   uri_paths: [
-    'create' => '/api/pergunta/{id}/votar'
+    'create' => '/api/pergunta/{id}/votar',
   ]
 )]
 final class VotarResource extends ResourceBase {
 
   protected EntityTypeManagerInterface $entityTypeManager;
+
   protected AccountProxyInterface $currentUser;
+
   protected ConfigFactoryInterface $configFactory;
 
   public function __construct(
@@ -61,13 +63,15 @@ final class VotarResource extends ResourceBase {
   }
 
   public function post(int $id, array $data, Request $request): ModifiedResourceResponse {
-    $globalDisabled = $this->configFactory->get('votacao.settings')->get('disable');
+    $globalDisabled = $this->configFactory->get('votacao.settings')
+      ->get('disable');
     if ($globalDisabled) {
       throw new AccessDeniedHttpException("O sistema de votação está temporariamente desativado.");
     }
 
     $clientToken = $request->headers->get('X-API-TOKEN');
-    $expectedToken = $this->configFactory->get('votacao.settings')->get('api_token');
+    $expectedToken = $this->configFactory->get('votacao.settings')
+      ->get('api_token');
 
     if (!$expectedToken || $clientToken !== $expectedToken) {
       throw new AccessDeniedHttpException("Token de acesso inválido ou ausente.");
@@ -84,13 +88,13 @@ final class VotarResource extends ResourceBase {
       throw new AccessDeniedHttpException("Votação desativada.");
     }
 
-    $opcao_id = $data['opcao_id'] ?? null;
+    $opcao_id = $data['opcao_id'] ?? NULL;
     if (!$opcao_id || !is_numeric($opcao_id)) {
       throw new BadRequestHttpException("ID da opção de resposta é obrigatório.");
     }
 
     $opcoes = $pergunta->get('opcoes')->referencedEntities();
-    $opcao = null;
+    $opcao = NULL;
 
     foreach ($opcoes as $item) {
       if ((int) $item->id() === (int) $opcao_id) {
@@ -113,4 +117,5 @@ final class VotarResource extends ResourceBase {
       'total_votos' => $opcao->get('votos')->value,
     ], 200);
   }
+
 }

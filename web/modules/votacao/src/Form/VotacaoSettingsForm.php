@@ -46,7 +46,6 @@ final class VotacaoSettingsForm extends ConfigFormBase {
       '#description' => $this->t('Se marcado, nenhum voto poderá ser registrado temporariamente.'),
     ];
 
-
     return parent::buildForm($form, $form_state);
   }
 
