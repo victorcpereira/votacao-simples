@@ -115,6 +115,14 @@ da pergunta permitir, visualizar os resultados após votar.
   - `lando db-import database.sql.gz`
 ---
 
+##  Credenciais
+
+- As credenciais de administrador, utilizando o banco de dados fornecido são:
+    - user: `admin` | password: `admin`
+- Também é possível gerar um link único de login executando o seguinte comando:
+    - `lando drush uli`
+---
+
 ## Pronto para entrega!
 
 Este projeto está pronto para avaliação com base nos critérios fornecidos.
